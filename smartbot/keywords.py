@@ -26,7 +26,8 @@ class Keywords:
                            'Olha o que eu encontrei para você a respeito de %s']
     apologizePhrases    = ['Desculpe, não entendi. Ainda estou aprendendo a ler e escrever =(',
                            'Poxa, preciso estudar mais, não entendo o que você disse']
-    greatPhrases        = ['Tudo blz! Estou à sua disposição, %s.',
+    feelingGreatPhrases = ['Tudo blz! Estou à sua disposição, %s.',
                            'Tudo tranquilo, %s! Você está procurando algo?']
     helloPhrases        = ['Olá, %s! Que tal dar uma olhada em nossos produtos?',
                            'Oi, %s! Estamos cheio de novidades, quer dar uma olhada?']
+    moreProductsPhrases = ['Caso queira dar uma olhada em outros produtos, escolha']

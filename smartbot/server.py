@@ -106,7 +106,7 @@ def handleMessage(sender_psid, recipientPSID, received_message):
         sendTypingBubble(sender_psid)
 
         if any(x in keywords.categorias for x in tokenizedWords):
-            sendCategoriesQuickReply(sender_psid)
+            sendCategoriesQuickReply(sender_psid, "Selecione uma categoria abaixo:")
             return
 
         # Greetings
@@ -114,15 +114,15 @@ def handleMessage(sender_psid, recipientPSID, received_message):
             userInfo = getPersonInfo(sender_psid)
             greetings = random.choice(keywords.helloPhrases) % userInfo['first_name']
             callSendAPI(sender_psid, {"text": greetings})
-            sendCategoriesQuickReply(sender_psid)
+            sendCategoriesQuickReply(sender_psid, "Selecione uma categoria abaixo:")
             return
 
         elif ('tudo' in tokenizedWords and any (x in keywords.howAreYou for x in tokenizedWords)) or \
                         any(x in keywords.howAreYou for x in tokenizedWords) and '?' in tokenizedWords:
             userInfo = getPersonInfo(sender_psid)
-            msg = random.choice(keywords.greatPhrases) % userInfo['first_name']
+            msg = random.choice(keywords.feelingGreatPhrases) % userInfo['first_name']
             callSendAPI(sender_psid, {"text": msg})
-            sendCategoriesQuickReply(sender_psid)
+            sendCategoriesQuickReply(sender_psid, "Veja nossas categorias:")
             return
 
         # Products
@@ -134,11 +134,13 @@ def handleMessage(sender_psid, recipientPSID, received_message):
         elif any(x in keywords.controladores for x in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Encontrei controladores, veja"})
             sendCarouselMsg(sender_psid, controladores)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         elif any(x in keywords.eletrofita for x in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Aqui estão algumas eletrofitas"})
             sendCarouselMsg(sender_psid, eletrofita)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         # iluminacao
@@ -149,11 +151,13 @@ def handleMessage(sender_psid, recipientPSID, received_message):
         elif any(x in keywords.fita for x in tokenizedWords) and any(y in keywords.led for y in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Aqui estão algumas fitas LED para você"})
             sendCarouselMsg(sender_psid, fita_led)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         elif any(x in keywords.lampada for x in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Encontrei algumas lâmpadas LED"})
             sendCarouselMsg(sender_psid, lampada_led)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         # luminárias
@@ -164,11 +168,13 @@ def handleMessage(sender_psid, recipientPSID, received_message):
         elif any(x in keywords.lustre for x in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Separei os lustres mais bonitos da loja para você!"})
             sendCarouselMsg(sender_psid, lustres)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         elif any(x in keywords.embutidos for x in tokenizedWords):
             callSendAPI(sender_psid, {"text": "Aqui estão alguns embutidos"})
             sendCarouselMsg(sender_psid, luminaria_embutir)
+            sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
         # Bot does not know the answer
@@ -176,21 +182,18 @@ def handleMessage(sender_psid, recipientPSID, received_message):
         callSendAPI(sender_psid, {"text": apologizePhrase})
         return
 
-# Handles messaging_postbacks events
+# Handle message_postbacks events
 def handlePostback(sender_psid, recipientPSID, received_postback):
     print("--------------------------------------------------")
     print("Received a postback from PSID %s" % str(sender_psid))
-    # print(received_postback)
     time.sleep(2)
 
-    if received_postback['title'] == 'Começar':
+    if received_postback['title'] == 'Começar' or received_postback['title'] == 'Get Started':
         userInfo = getPersonInfo(sender_psid)
-        sendTypingBubble(sender_psid)
-        greetings = "Olá %s!" % userInfo['first_name']
+        greetings = random.choice(keywords.helloPhrases) % userInfo['first_name']
         callSendAPI(sender_psid, {"text": greetings})
-        sendCategoriesQuickReply(sender_psid)
+        sendCategoriesQuickReply(sender_psid, "Escolha uma de nossas categorias:")
         return
-
     return
 
 # Sends response messages via the Send API
@@ -244,9 +247,9 @@ def sendCarouselMsg(psid, elements):
 
     r  = requests.post(url, params={"access_token": PAGE_ACCESS_TOKEN}, json=requestBody)
 
-
-def sendCategoriesQuickReply(psid):
-    text         = "Selecione uma categoria abaixo:"
+# Quick replies according to the product
+def sendCategoriesQuickReply(psid, text):
+    text         =  text
     quickReplies = [{"content_type": "text", "title": "Iluminação", "payload": "iluminacao"},
                     {"content_type": "text", "title": "Luminárias", "payload": "luminarias"},
                     {"content_type": "text", "title": "Materiais Elétricos", "payload": "materiais-eletricos"}]
@@ -274,14 +277,14 @@ def sendIluminationQuickReply(psid):
                     {"content_type": "text", "title": "Ir para Categorias", "payload": "categorias"}]
     sendQuickReply(psid, text, quickReplies)
 
+# Add "get_started" button
 @app.route('/setupMessenger')
 def setMessengerProfile():
     url = "https://graph.facebook.com/v2.6/me/messenger_profile"
     qs = {"access_token": PAGE_ACCESS_TOKEN}
-    properties = {"get_started": {"payload": "getStarted"},
-                  "greetings": [{"locale": "default", "text": "Olá!"}]}
+    properties = {"get_started": {"payload": "getStarted"}}
 
-    r = requests.post(url, params=qs, json=properties)
+    requests.post(url, params=qs, json=properties)
     return "OK", 200
 
 
