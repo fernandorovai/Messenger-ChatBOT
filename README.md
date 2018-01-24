@@ -1,6 +1,7 @@
 # Luizalabs-AIEngineer Task
 Flask based HTTP application to consume / provide data to a real time Facebook Messenger chat bot.
 
+![Demo](https://user-images.githubusercontent.com/3229701/35335503-f0a1c494-00fc-11e8-9759-6eff7f8ba4a2.gif)
 The project is up and running for demo purposes: [ProjectDemo](https://www.facebook.com/HunterDesign-165135967439067/)
 
 ## Getting Started
@@ -50,6 +51,31 @@ Expected output
 ```
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
+
+## Principal Methods
+
+* sendCarouselMsg(sender_id, elements)
+```
+# elements structure
+elements = [
+                {'subtitle': 'Price or a subtitle', 
+                 'buttons': [{'url': 'url', 'type': 'web_url', 'title': 'Ver Detalhes'}], 
+                 'image_url': 'imageUrl', 
+                 'title': 'Product Title'}, 
+                {...}
+             ]
+```
+* sendQuickReply(sender_id, quickReplies)
+```
+quickReplies = [{"content_type": "text","title": "Lustres","payload": "lustres"},
+                {"content_type": "text","title": "Embutidos","payload": "embutidos"},
+                {"content_type": "text","title": "Ir para Categorias","payload": "categorias"}]
+```              
+* sendTypingBubble(sender_id)
+* getPersonInfo(sender_id)
+* callSendAPI(sender_id, {"text": "yourText"})
+
+
 
 ## Keywords / Phrases
 This bot uses pre-defined keywords to chat. These keywords are found in keywords.py file.
