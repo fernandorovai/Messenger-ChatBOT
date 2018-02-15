@@ -1,4 +1,4 @@
-# Luizalabs-AIEngineer Task
+# Facebook Messenger ChatBOT
 Flask based HTTP application to consume / provide data to a real time Facebook Messenger chat bot.
 
 ![Demo](https://user-images.githubusercontent.com/3229701/35335503-f0a1c494-00fc-11e8-9759-6eff7f8ba4a2.gif)
@@ -18,14 +18,14 @@ pip
 Clone source code from git repo
 
 ```
-$ git clone https://github.com/fernandorovai/Luizalabs-AIEngineer
+$ git clone https://github.com/fernandorovai/Messenger-ChatBOT
 ```
 
 Setup and activate virtual environment
 
 ```
-$ virtualenv Luizalabs-AIEngineer -p python3
-$ cd Luizalabs-AIEngineer
+$ virtualenv Messenger-ChatBOT -p python3
+$ cd Messenger-ChatBOT
 $ source ./bin/activate
 ```
 
@@ -44,7 +44,7 @@ context = ('/path/fullchain.pem',
 
 obs: if your credentials are in root dir, you may have to install the dependencies also using root
 
-$ cd Luizalabs-AIEngineer
+$ cd Messenger-ChatBOT
 $ python3 server.py or sudo python3 server.py
 ```
 Expected output
@@ -89,7 +89,6 @@ Consider retrieving information from database / API.
 ## Deployment
 
 Flask’s built-in server is not suitable for production. Consider deploying the application to a WSGI Server.
-
 For more information, check [Flask Documentation](http://flask.pocoo.org/docs/0.12/deploying/)
 
 ## Built With
@@ -100,6 +99,3 @@ For more information, check [Flask Documentation](http://flask.pocoo.org/docs/0.
 
 ## Authors
 * **Fernando Rodrigues Jr** - *Initial work* - [Fernando](https://github.com/fernandorovai)
-
-## License
-This project is restricted to LuizaLabs.
