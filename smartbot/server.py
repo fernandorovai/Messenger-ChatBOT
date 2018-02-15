@@ -177,6 +177,16 @@ def handleMessage(sender_psid, recipientPSID, received_message):
             sendCategoriesQuickReply(sender_psid, "Deseja ver outra categoria?")
             return
 
+        elif any(x in keywords.byePhrases for x in tokenizedWords):
+            callSendAPI(sender_psid, {"text": "Obrigado! Não quer aproveitar para olhar mais algumas coisas?"})
+            sendCategoriesQuickReply(sender_psid, "Temos as seguintes categorias:")
+            return
+
+        elif any(x in keywords.backPhrases for x in tokenizedWords):
+            callSendAPI(sender_psid, {"text": "Voltaremos para o início então"})
+            sendCategoriesQuickReply(sender_psid, "Aqui estão as categorias:")
+            return
+
         # Bot does not know the answer
         apologizePhrase = random.choice(keywords.apologizePhrases)
         callSendAPI(sender_psid, {"text": apologizePhrase})

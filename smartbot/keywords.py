@@ -20,7 +20,7 @@ class Keywords:
     embutidos           = ['embutidos', 'embutido']
 
     # Speeches
-    greetings           = ['oi', 'olá', 'ei', 'hello', 'opa']
+    greetings           = ['oi', 'olá', 'ei', 'hello', 'opa', 'ola']
     howAreYou           = ['bem', 'bom', 'legal', 'certo', 'blz', 'beleza', 'tranquilo']
     foundPhrases        = ['Encontrei %s, veja', 'Aqui estão alguns resultados de %s',
                            'Olha o que eu encontrei para você a respeito de %s']
@@ -31,3 +31,5 @@ class Keywords:
     helloPhrases        = ['Olá, %s! Que tal dar uma olhada em nossos produtos?',
                            'Oi, %s! Estamos cheio de novidades, quer dar uma olhada?']
     moreProductsPhrases = ['Caso queira dar uma olhada em outros produtos, escolha']
+    byePhrases          = ['tchau', 'obrigado', 'obg', 'até', 'obrigada']
+    backPhrases         = ['voltar', 'anterior', 'início', 'inicio']
